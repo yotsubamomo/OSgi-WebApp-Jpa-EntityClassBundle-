@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Export-Package: com.gfactor.dao;version="1.0.0";uses:="com.gfactor.jpa
+ .persistence.test,com.gfactor.jpa.persistence.test2"
+Unversioned-Imports: *
+Built-By: momo
+Tool: Bnd-1.43.0
+Bundle-Name: Spring OSGi Bundle for jpa bundle service layer
+Created-By: Apache Maven Bundle Plugin
+Bundle-Version: 1.0.0
+Build-Jdk: 1.6.0_26
+Bnd-LastModified: 1313477275968
+Bundle-ManifestVersion: 2
+Import-Package: com.gfactor.jpa.persistence.test,
+ com.gfactor.jpa.persistence.test2,
+ javax.persistence,
+ org.slf4j,
+ org.springframework.orm.jpa,
+ org.springframework.orm.jpa.support
+Bundle-SymbolicName: plugin-webdomain-jpa-dao.test
+

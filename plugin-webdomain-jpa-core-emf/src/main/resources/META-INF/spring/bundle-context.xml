@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- regular spring configuration file defining the beans for this bundle. 
+		The configuration of OSGi definitions is kept in a separate configuration 
+		file so that this file can easily be used for integration testing outside 
+		of an OSGi environment -->
+	<context:load-time-weaver aspectj-weaving="on" />
+	<!-- <context:load-time-weaver aspectj-weaving="on" weaver-class="org.eclipse.equinox.weaving.springweaver.EquinoxAspectsLoadTimeWeaver"/> -->
+
+	<context:annotation-config />
+	<!-- -->
+	<tx:annotation-driven mode="aspectj" />
+
+	<bean id="osgiPersistenceClassLoader"
+		class="com.gfactor.jpa.internal.loader.OsgiPersistenceClassLoader" />
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<!-- <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" 
+		/> -->
+	<!-- Transaction manager for a single JPA EntityManagerFactory (alternative 
+		to JTA) -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<!-- <bean id="defaultPuMgr" class="com.gfactor.jpa.internal.core.MergingPersistenceUnitManager"> 
+		<property name="defaultDataSource" ref="dataSource"/> <property name="osgiPersistenceClassLoader" 
+		ref="osgiPersistenceClassLoader"/> <property name="persistenceXmlLocations"> 
+		<list> <value>classpath:META-INF/persistence*.xml</value> </list> </property> 
+		</bean> <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
+		<property name="persistenceUnitManager" ref="defaultPuMgr"/> </bean> -->
+
+	<bean id="entityManagerFactory"
+		class="com.gfactor.jpa.internal.core.LoadPersistenceBundleEntityManagerFactoryBean"
+		p:dataSource-ref="dataSource">
+		<property name="persistenceUnitName" value="plugin-web-domain"></property>
+		<property name="osgiPersistenceClassLoader" ref="osgiPersistenceClassLoader"></property>
+		<property name="jpaVendorAdapter">
+			<bean id="jpaVendorAdapter"
+				class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
+				p:databasePlatform="org.eclipse.persistence.platform.database.MySQLPlatform"
+				p:showSql="true" />
+		</property>
+		<property name="loadTimeWeaver" ref="loadTimeWeaver"/>
+		<property name="jpaProperties">
+			<bean id="jpaProperties"
+				class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="properties">
+					<props>
+						<prop key="eclipselink.weaving">false</prop>
+					</props>
+				</property>
+			</bean>
+		</property>
+
+	</bean>
+
+
+
+</beans>

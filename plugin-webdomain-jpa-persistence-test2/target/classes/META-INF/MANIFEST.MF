@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Export-Package: com.gfactor.jpa.persistence.test2;version="1.0.0";uses
+ :="javax.persistence"
+Unversioned-Imports: *
+Built-By: momo
+Tool: Bnd-1.43.0
+Bundle-Name: Spring OSGi Bundle for jpa persistence unit
+Created-By: Apache Maven Bundle Plugin
+Bundle-Version: 1.0.0
+Build-Jdk: 1.6.0_26
+Meta-Persistence-ScanPackage: com.gfactor.jpa.persistence.test2
+Bnd-LastModified: 1313477275968
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: plugin-webdomain-jpa-persistence-test2
+Import-Package: javax.persistence
+

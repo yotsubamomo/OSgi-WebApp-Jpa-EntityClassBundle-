@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Export-Package: com.gfactor.service;version="1.0.0";uses:="org.springframework.beans.factory.annotation",
+ com.gfactor.service.test;version="1.0.0";uses:="org.springframework.beans.factory.annotation,org.springframework.transaction.annotation"
+Unversioned-Imports: *
+Built-By: momo
+Tool: Bnd-1.43.0
+Bundle-Name: Spring OSGi Bundle for jpa bundle service layer
+Created-By: Apache Maven Bundle Plugin
+Bundle-Version: 1.0.0
+Build-Jdk: 1.6.0_26
+Bnd-LastModified: 1313477275968
+Import-Library: org.springframework.spring;version="[3.0.3,3.1)"
+Import-Bundle: org.eclipse.persistence.jpa;version="[2.0.0,2.4.0]"
+Bundle-ManifestVersion: 2
+Import-Package: com.gfactor.dao,
+ com.gfactor.jpa.persistence.test,
+ com.gfactor.jpa.persistence.test2,
+ net.sf.cglib.core,
+ net.sf.cglib.proxy,
+ net.sf.cglib.reflect,
+ org.aspectj.lang,
+ org.aspectj.runtime.reflect,
+ org.slf4j,
+ org.springframework.transaction.aspectj,
+ org.springframework.beans.factory.annotation,
+ org.springframework.transaction,
+ org.springframework.transaction.annotation,
+ org.springframework.context.weaving
+Bundle-SymbolicName: plugin-webdomain-service-test
+
